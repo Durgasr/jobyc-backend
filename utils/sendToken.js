@@ -5,8 +5,8 @@ export const sendToken = async (user, res, statusCode) => {
       Date.now() + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: false, //
-    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production", // true in production
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   };
   res
     .status(statusCode)
