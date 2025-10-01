@@ -6,7 +6,7 @@ export const createNewUserRepo = async (user) => {
   } else if (user.role === "recruiter") {
     return await new Recruiter(user).save();
   } else {
-    throw new Error("Invalid role");
+    throw new Error("Invalid role, Select your role first.");
   }
 };
 
