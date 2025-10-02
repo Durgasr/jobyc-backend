@@ -23,7 +23,7 @@ export const applyToJob = async (req, res, next) => {
     const application = await createApplication(jobId, userId);
     res.status(201).json({ success: true, application });
   } catch (err) {
-    next(new ErrorHandler(500, err.message));
+    next(new ErrorHandler(500, err));
   }
 };
 
@@ -36,7 +36,7 @@ export const checkIfApplied = async (req, res, next) => {
     const existing = await findApplication(jobId, userId);
     res.json({ applied: !!existing });
   } catch (err) {
-    next(new ErrorHandler(500, err.message));
+    next(new ErrorHandler(500, err));
   }
 };
 
@@ -48,7 +48,7 @@ export const getJobApplications = async (req, res, next) => {
     const applications = await getApplicationsByJob(jobId);
     res.json({ success: true, applications });
   } catch (err) {
-    next(new ErrorHandler(500, err.message));
+    next(new ErrorHandler(500, err));
   }
 };
 
@@ -58,7 +58,7 @@ export const getApplicationsCount = async (req, res, next) => {
     const count = await getApplicationsCountByJob(jobId);
     res.json({ success: true, count });
   } catch (err) {
-    next(new ErrorHandler(500, err.message));
+    next(new ErrorHandler(500, err));
   }
 };
 
@@ -74,7 +74,7 @@ export const getJobApplicants = async (req, res, next) => {
       jobDetails: jobDetails,
     });
   } catch (err) {
-    next(new ErrorHandler(500, err.message));
+    next(new ErrorHandler(500, err));
   }
 };
 
@@ -103,7 +103,7 @@ export const viewResume = async (req, res, next) => {
       message: "Applicant notified about resume view",
     });
   } catch (err) {
-    next(new ErrorHandler(500, err.message));
+    next(new ErrorHandler(500, err));
   }
 };
 
@@ -118,7 +118,6 @@ export const viewProfile = async (req, res, next) => {
     }
 
     const job = await findJobDetailsById(application.job);
-    console.log(application, job);
 
     await sendEmail(
       application.applicant.email,
@@ -134,6 +133,6 @@ export const viewProfile = async (req, res, next) => {
       message: "Applicant notified about profile view",
     });
   } catch (err) {
-    next(new ErrorHandler(500, err.message));
+    next(new ErrorHandler(500, err));
   }
 };
