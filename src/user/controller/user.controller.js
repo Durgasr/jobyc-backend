@@ -49,7 +49,6 @@ export const userLogin = async (req, res, next) => {
 
 export const getUserDetails = async (req, res, next) => {
   try {
-    console.log(req.user);
     const userDetails = await findUserRepo({ _id: req.user.id });
     res.status(200).json({ success: true, user: userDetails });
   } catch (error) {
