@@ -67,7 +67,12 @@ export const getJobApplicants = async (req, res, next) => {
   try {
     const { jobId } = req.params;
     const applications = await getApplicationsByJob(jobId);
-    res.json({ success: true, applicants: applications });
+    const jobDetails = await findJobDetailsById(jobId);
+    res.json({
+      success: true,
+      applicants: applications,
+      jobDetails: jobDetails,
+    });
   } catch (err) {
     next(new ErrorHandler(500, err.message));
   }
