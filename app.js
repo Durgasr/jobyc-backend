@@ -15,7 +15,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin:
+      "https://68dfe3dcf4f5eb0d05798c6e--hilarious-ganache-cfadcc.netlify.app/",
     credentials: true,
   })
 );
@@ -29,7 +30,6 @@ app.use("/api/jobyc/user", userRoutes);
 app.use("/api/jobyc/jobs", jobsRouter);
 app.use("/api/jobyc/applications", applicationsRouter);
 
-
-app.use(errorHandlerMiddleware)
+app.use(errorHandlerMiddleware);
 
 export default app;
