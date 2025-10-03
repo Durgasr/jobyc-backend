@@ -16,7 +16,7 @@ const app = express();
 app.use(
   cors({
     origin:
-      "https://68dfe3dcf4f5eb0d05798c6e--hilarious-ganache-cfadcc.netlify.app/",
+      "https://68dfece99a63001c4bbc5d70--hilarious-ganache-cfadcc.netlify.app/",
     credentials: true,
   })
 );
