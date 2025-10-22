@@ -68,17 +68,67 @@ export const User = mongoose.model("User", baseUserSchema);
 
 // Jobseeker schema
 const jobseekerSchema = new mongoose.Schema({
-  skills: [String],
-  resumeUrl: String,
-  experience: String,
+  // Profile Info
+  profileImage: String,
+  title: String, // e.g., "Full Stack Developer"
+  about: String,
   location: String,
+
+  // Professional Info
+  skills: [String],
+  experience: [
+    {
+      company: String,
+      position: String,
+      startDate: String,
+      endDate: String,
+      description: String,
+    },
+  ],
+  education: [
+    {
+      institution: String,
+      degree: String,
+      startYear: String,
+      endYear: String,
+    },
+  ],
+  projects: [
+    {
+      name: String,
+      description: String,
+      technologies: [String],
+      link: String,
+    },
+  ],
+
+  // Resume and Links
+  resumeUrl: String,
+  portfolioLink: String,
+  github: String,
+  linkedin: String,
+  previousSalary: String,
+
+  // Progress
+  profileCompleted: { type: Boolean, default: false },
+  progress: { type: Number, default: 0 },
 });
 
 // Recruiter schema
 const recruiterSchema = new mongoose.Schema({
+  profileImage: String,
   company: String,
-  position: String,
+  position: String, // e.g., "HR Manager"
   website: String,
+  companyDescription: String,
+  companyLocation: String,
+  companyLogo: String,
+  contactNumber: String,
+  linkedin: String,
+
+  // Progress
+  profileCompleted: { type: Boolean, default: false },
+  progress: { type: Number, default: 0 },
 });
 
 export const Jobseeker = User.discriminator("jobseeker", jobseekerSchema);
