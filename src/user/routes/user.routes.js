@@ -3,6 +3,8 @@ import {
   createNewUser,
   getUserDetails,
   userLogin,
+  forgotPassword,
+  resetPassword
 } from "../controller/user.controller.js";
 import { isAuthenticated } from "../../../middlewares/auth.js";
 import upload from "../../../middlewares/fileUpload.js";
@@ -14,5 +16,8 @@ router.route("/register").post(upload.single("resume"), createNewUser);
 router.route("/login").post(userLogin);
 router.route("/me").get(isAuthenticated, getUserDetails);
 router.route("/logout").post(isAuthenticated, logoutUser);
+
+router.post("/forgot-password", forgotPassword);
+router.put("/reset-password/:token", resetPassword);
 
 export default router;
