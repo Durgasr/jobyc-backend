@@ -19,7 +19,6 @@ app.use(express.static('public'));
 app.use(
   cors({
     origin: "http://localhost:3000",
-    // "https://68dfece99a63001c4bbc5d70--hilarious-ganache-cfadcc.netlify.app"
     credentials: true,
   })
 );
