@@ -3,7 +3,8 @@
 /config/.env
 
 
-# Ignore uploaded files but keep the folder
+# Ignore all uploads
+uploads/**
 
-uploads/*
+# But track .gitkeep files inside uploads and subfolders
 !uploads/**/*.gitkeep
