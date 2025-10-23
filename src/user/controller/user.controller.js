@@ -70,7 +70,7 @@ export const forgotPassword = async (req, res, next) => {
 
     // Generate reset token
     // Cast to 'any' so VSCode type-checking doesn't complain
-    const resetToken = user.getResetPasswordToken(); 
+    const resetToken = user.getResetPasswordToken();
     await user.save({ validateBeforeSave: false });
 
     // Construct reset URL
@@ -78,11 +78,17 @@ export const forgotPassword = async (req, res, next) => {
 
     // Email content
     const message = `
-      <p>You requested a password reset.</p>
-      <p>Click the link below to reset your password:</p>
-      <a href="${resetUrl}">${resetUrl}</a>
-      <p>If you did not request this, please ignore this email.</p>
-    `;
+  <div style="font-family: Arial, sans-serif; text-align: center;">
+    <img src="${process.env.BACKEND_URL}/jobyc.png" alt="App Logo" width="60" style="margin-bottom: 10px;" />
+    <h2>Password Reset Request</h2>
+  </div>
+  <div style="margin-left:120px">
+  <p>You requested a password reset.</p>
+  <p>Click the link below to reset your password:</p>
+  <a href="${resetUrl}" style="color: #4F46E5;">${resetUrl}</a>
+  <p>If you did not request this, please ignore this email.</p>
+  </div>
+`;
 
     // Send email
     await resetPasswordEmail({
@@ -102,7 +108,7 @@ export const forgotPassword = async (req, res, next) => {
 };
 
 // Reset Password
- 
+
 export const resetPassword = async (req, res, next) => {
   try {
     const { token } = req.params;
@@ -138,7 +144,6 @@ export const resetPassword = async (req, res, next) => {
     return next(new ErrorHandler(500, err.message));
   }
 };
-
 
 export const logoutUser = async (req, res) => {
   res
