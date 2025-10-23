@@ -8,12 +8,29 @@ import {
 import { findJobDetailsById } from "../../jobs/models/job.repository.js";
 import { ErrorHandler } from "../../../utils/errorHandler.js";
 import { sendEmail } from "../../../utils/sendEmail.js";
+import { User } from "../../user/models/user.schema.js";
 
 // ✅ Apply to Job
 export const applyToJob = async (req, res, next) => {
   try {
     const { jobId } = req.params;
     const userId = req.user._id;
+
+    // Fetch job seeker profile
+    const jobSeeker = await User.findById(userId);
+    if (!jobSeeker) {
+      return next(new ErrorHandler(404, "Job seeker not found"));
+    }
+
+    // ✅ Check profile progress
+    if (jobSeeker.progress < 80) {
+      return next(
+        new ErrorHandler(
+          403,
+          "Please complete your profile (minimum 80%) before applying."
+        )
+      );
+    }
 
     const existing = await findApplication(jobId, userId);
     if (existing) {
