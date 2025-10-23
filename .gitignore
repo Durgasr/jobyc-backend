@@ -6,5 +6,4 @@
 # Ignore uploaded files but keep the folder
 
 uploads/*
-
-!uploads/.gitignore
+!uploads/**/*.gitkeep
