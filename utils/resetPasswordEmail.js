@@ -1,25 +1,20 @@
-import nodemailer from "nodemailer";
+import { MailerSend } from "mailersend";
 
-const resetPasswordEmail = async ({ to, subject, html }) => {
-  const transporter = nodemailer.createTransport({
-    // host: process.env.SMTP_HOST,
-    // port: process.env.SMTP_PORT,
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false, // true for 465, false for 587
-    requireTLS: true,
-    auth: {
-      user: process.env.JOBYC_SMTP_MAIL,
-      pass: process.env.JOBYC_SMTP_PASS,
-    },
-  });
 
-  await transporter.sendMail({
-    from: `"Jobyc Careers" <${process.env.JOBYC_SMTP_MAIL}>`,
-    to,
-    subject,
-    html,
-  });
+const mailer = new MailerSend({ apiKey: process.env.MAILERSEND_PASS });
+
+export const resetPasswordEmail = async ({ to, subject, html }) => {
+  try {
+    await mailer.email.send({
+      from: process.env.MAILERSEND_EMAIL,
+      to: [to],
+      subject,
+      html,
+    });
+    console.log("Email sent successfully via API!");
+  } catch (err) {
+    console.error("Email sending failed:", err);
+  }
 };
 
 export default resetPasswordEmail;
