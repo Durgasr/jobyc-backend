@@ -1,20 +1,30 @@
-import { MailerSend } from "mailersend";
+import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 
 
-const mailer = new MailerSend({ apiKey: process.env.MAILERSEND_PASS });
+const mailerSend = new MailerSend({
+  apiKey: process.env.MAILERSEND_API_KEY,
+});
+
+console.log("API Key:", process.env.MAILERSEND_API_KEY);
+
 
 export const resetPasswordEmail = async ({ to, subject, html }) => {
+  const sentFrom = new Sender(process.env.MAILERSEND_FROM_EMAIL, process.env.MAILERSEND_FROM_NAME);
+  const recipients = [new Recipient(to, "Recipient")];
+
+  const emailParams = new EmailParams()
+    .setFrom(sentFrom)
+    .setTo(recipients)
+    .setSubject(subject)
+    .setHtml(html);
+
   try {
-    await mailer.email.send({
-      from: process.env.MAILERSEND_EMAIL,
-      to: [to],
-      subject,
-      html,
-    });
-    console.log("Email sent successfully via API!");
+    await mailerSend.email.send(emailParams);
+    console.log("✅ Email sent successfully via MailerSend API!");
   } catch (err) {
-    console.error("Email sending failed:", err);
+    console.error("❌ Email sending failed:", err);
   }
 };
 
-export default resetPasswordEmail;
+
+export default resetPasswordEmail
