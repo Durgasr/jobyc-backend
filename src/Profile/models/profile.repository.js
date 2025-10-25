@@ -38,7 +38,7 @@ export const updateJobseekerProfile = async (userId, profileData) => {
   profileData.profileCompleted = profileData.progress === 100;
 
   // Update user directly
-  const updatedUser = await User.findByIdAndUpdate(userId, profileData, {
+  const updatedUser = await Jobseeker.findByIdAndUpdate(userId, profileData, {
     new: true, // return the updated document
   });
 
