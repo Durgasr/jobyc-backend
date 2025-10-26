@@ -74,3 +74,8 @@ export const updateRecruiterProfile = async (userId, profileData) => {
 
   return await recruiter.save();
 };
+
+
+export const findRecruiterDetailsById = async(recruiterId)=>{
+  return Recruiter.findById(recruiterId)
+}
