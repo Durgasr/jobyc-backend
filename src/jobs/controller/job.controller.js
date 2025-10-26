@@ -1,4 +1,3 @@
-// job.controller.js
 import { ErrorHandler } from "../../../utils/errorHandler.js";
 import {
   createJobRepo,
@@ -9,6 +8,7 @@ import {
   findAllJobsRepo,
 } from "../models/job.repository.js";
 import { User } from "../../user/models/user.schema.js";
+import { findRecruiterDetailsById } from "../../Profile/models/profile.repository.js";
 
 export const createJob = async (req, res, next) => {
   try {
@@ -32,7 +32,6 @@ export const createJob = async (req, res, next) => {
     const job = await createJobRepo({ ...req.body, recruiter: req.user.id });
     res.status(201).json({ success: true, job });
   } catch (err) {
-    console.log(err);
     next(new ErrorHandler(500, err));
   }
 };
@@ -49,7 +48,10 @@ export const getMyJobs = async (req, res, next) => {
 export const getJobDetailsById = async (req, res, next) => {
   try {
     const jobDetails = await findJobDetailsById(req.params.id);
-    res.json({ success: true, job: jobDetails });
+    const recruiterDetails = await findRecruiterDetailsById(
+      jobDetails.recruiter
+    );
+    res.json({ success: true, job: jobDetails, recruiter: recruiterDetails });
   } catch (err) {
     next(new ErrorHandler(500, err));
   }
