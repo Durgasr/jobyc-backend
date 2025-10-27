@@ -16,6 +16,7 @@ export const updateJobseekerProfile = async (userId, profileData) => {
     "profileImage",
     "title",
     "skills",
+    "totalExperience",
     "experience",
     "resumeUrl",
     "location",
