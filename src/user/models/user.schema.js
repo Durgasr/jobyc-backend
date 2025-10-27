@@ -108,6 +108,7 @@ const jobseekerSchema = new mongoose.Schema({
   github: String,
   linkedin: String,
   previousSalary: String,
+  totalExperience : Number,
 
   // Progress
   profileCompleted: { type: Boolean, default: false },
