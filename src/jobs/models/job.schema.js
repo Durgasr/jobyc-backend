@@ -18,28 +18,18 @@ const jobSchema = new mongoose.Schema(
     },
     designation: {
       type: String,
-      enum: [
-        "HR",
-        "SDE",
-        "DevOps",
-        "MERN Developer",
-        "MEAN Developer",
-        "Front-End Developer",
-        "Back-End Developer",
-        "Full-Stack Developer",
-      ],
       required: true,
     },
     description: {
       type: String,
       required: true,
     },
-    location: {
-      type: String,
+    minimumExperienceRequired: {
+      type: Number,
       required: true,
     },
     salary: {
-      type: Number, 
+      type: Number,
       required: true,
     },
     totalPositions: {
@@ -50,8 +40,8 @@ const jobSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
-    applyBy: {
-      type: Date,
+    location: {
+      type: String,
       required: true,
     },
   },
