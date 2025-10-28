@@ -19,8 +19,6 @@ export const sendEmail = async (
       },
     });
 
-    console.log("Email")
-
     if (view === "profile") {
       htmlContent = `
     <p>Hi <b>${name}</b>,</p>
