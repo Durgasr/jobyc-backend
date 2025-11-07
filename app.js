@@ -16,7 +16,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://jobyccareers.netlify.app",
+    origin: "https://690e8151dcfd48a96a5af1d1--jobyccareers.netlify.app/",
     credentials: true,
   })
 );
