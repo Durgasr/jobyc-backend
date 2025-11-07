@@ -17,10 +17,11 @@ app.use(express.static("public"));
 
 app.use(
   cors({
-    origin: `${process.env.FRONTEND_URL}`,
+    origin: `${process.env.FRONTEND_URL}` || "http://localhost:3000",
     credentials: true,
   })
 );
+console.log(`${process.env.FRONTEND_URL}`)
 
 app.use(express.json());
 app.use(cookieParser());
