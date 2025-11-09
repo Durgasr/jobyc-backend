@@ -14,12 +14,25 @@ dotenv.config({ path: configPath });
 
 const app = express();
 
+const allowedOrigins = [
+  "https://jobyccareers.netlify.app",
+  "http://localhost:3000",
+];
+
 app.use(
   cors({
-    origin: "https://jobyccareers.netlify.app",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.log("Blocked by CORS:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+app.options("*", cors());
 
 app.use(express.json());
 app.use(cookieParser());
